@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Top from "@/components/Top";
+import FileNameContext from "@/context/file-name-context";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,7 +23,10 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+        <FileNameContext>
+          <Top></Top>
+          {children}
+        </FileNameContext>
       </body>
     </html>
   );
