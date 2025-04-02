@@ -12,15 +12,16 @@ export default function  SearchBar() {
 
 
     
-    const handleDirSearch = ()=>{
-
-        console.log('adasdsajdjb');
+    const handleDirSearch = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>)=>{
+        e.preventDefault()
+        console.log(e.currentTarget.textContent);
         
 
-        setFilesShown(searchInput as string)
+        setFilesShown(e.currentTarget.textContent!?.trim())
+        setSearchInput(e.currentTarget.textContent!?.trim())
         router.push('/explorer')
         return
-    }
+    }  
 
     useEffect(()=>{
 
@@ -44,11 +45,11 @@ export default function  SearchBar() {
 
 
         return (
-            <div className="absolute top-full left-0 w-full  bg-[#1c1c1c] p-4 z-10">
+            <div className="absolute top-full left-0 w-full  bg-[#1c1c1c] p-4 z-10 flex  flex-col">
 
-                { result?.map((file)=>{
+                { result?.map((file)=>{        
+                    return <button className="text-left hover:bg-[#2b2b2b] hover:cursor-pointer" key={file} onClick={(e)=>{handleDirSearch(e)}} > {file.trim().split('/').pop()}</button>
                     
-                    return <button key={file} onClick={handleDirSearch}> {file.trim().split('/').pop()}</button>
                 })}
            
             </div>
@@ -67,6 +68,7 @@ export default function  SearchBar() {
                         type="text"
                         name="input"
                         placeholder="Search"
+                        value={searchInput || ''}
                     />
                 </form>
                     <SearchResults></SearchResults>

@@ -15,6 +15,7 @@ type DesktopLsReturnType =  Promise<{
 
 export const desktopLs = async(search: string): DesktopLsReturnType=> {
 
+
     const fileList = await freeCommand('ls -lh /mnt/c/Users/Expel/Desktop/' + search);
     
     const fileNamesArray = fileList.result?.trim().split('\n').slice(1)
@@ -36,6 +37,10 @@ export const desktopLs = async(search: string): DesktopLsReturnType=> {
 }
 
 export const desktopFind = async(search: string)=>{
+
+
+
+
     const fileList = await freeCommand(`find /mnt/c/Users/Expel/Desktop -type d -maxdepth 2 -iname "*${search}*"`);
     const fileNamesArray = fileList.result?.trim().split('\n')
 
